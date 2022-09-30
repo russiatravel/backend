@@ -22,8 +22,10 @@ def get_by_id(uid):
 @app.put('/api/places/<int:uid>')
 def update_by_id(uid):
     payload = request.json
+
     for key in payload:
         places[uid][key] = payload[key]
+
     return places[uid]
 
 @app.delete('/api/places/<int:uid>')
