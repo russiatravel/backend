@@ -1,13 +1,14 @@
 # Contributing
 
-### Install dependencies:
+## Install dependencies
 
+```#!/bin/bash
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
->source .venv/bin/activate
->pip install -r requirements.txt
+## Usage
 
-
-
-### Usage:
-
->python -m backend
+```#!/bin/bash
+python -m backend
+```
