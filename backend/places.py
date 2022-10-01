@@ -7,7 +7,7 @@ places = []
 @app.post('/api/places/')
 def add():
     payload = request.json
-    payload["uid"] = len(places) + 1
+    payload["uid"] = len(places)
     places.append(payload)
     return payload, 201
 
@@ -17,7 +17,7 @@ def get_all():
 
 @app.get('/api/places/<int:uid>')
 def get_by_id(uid):
-    return places[uid - 1], 200
+    return places[uid], 200
 
 @app.put('/api/places/<int:uid>')
 def update_by_id(uid):
@@ -30,4 +30,4 @@ def update_by_id(uid):
 
 @app.delete('/api/places/<int:uid>')
 def delete_place(uid):
-    return places.pop(uid - 1), 201
+    return places.pop(uid), 201
