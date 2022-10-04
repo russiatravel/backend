@@ -1,40 +1,55 @@
 from flask import Flask, request
 from typing import Any
+from pydantic import BaseModel, ValidationError
+
 
 app = Flask(__name__)
 
 Json = dict[int, Any]
-class Storage:
-    def __init__(self):
 
-        self.places: dict[int, Json] = {}
+class Place(BaseModel):
+    uid: int
+    name: str
+    description: str
+
+class LocalStorage:
+    def __init__(self):
+        self.places: dict[int, Place] = {}
         self.last_uid = 0
 
-    def add(self, place: Json) -> Json:
+    def add(self, place: Place) -> Place:
         self.last_uid += 1
-        place["uid"] = self.last_uid
+        place.uid = self.last_uid
         self.places[self.last_uid] = place
         return place
 
-    def get_all(self) -> list[Json]:
+    def get_all(self) -> list[Place]:
         return list(self.places.values())
 
-    def get_by_id(self, uid:int) -> Json:
+    def get_by_id(self, uid:int) -> Place:
         return self.places[uid]
 
-    def update(self, uid: int, place: Json) -> Json:
+    def update(self, uid: int, place: Place) -> Place:
         self.places[uid] = place
         return place
 
     def delete(self, uid: int) -> None:
         self.places.pop(uid)
 
-storage = Storage()
+storage = LocalStorage()
 
 @app.post('/api/places/')
 def add():
-    place = request.json
-    return storage.add(place), 201
+    payload = request.json
+    payload["uid"] = -1
+
+    try:
+        place = Place(**payload)
+    except ValidationError as err:
+        return {'error': str(err)}, 400
+
+    place = storage.add(place)
+    return place.dict(), 201
 
 @app.get('/api/places/')
 def get_all():
