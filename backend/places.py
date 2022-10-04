@@ -61,8 +61,16 @@ def get_by_id(uid):
 
 @app.put('/api/places/<int:uid>')
 def update_by_id(uid):
-    place = request.json
-    return storage.update(uid, place), 200
+    payload = request.json
+    payload['uid'] = uid
+
+    try:
+        place = Place(**payload)
+    except ValidationError as err:
+        return {'error': str(err)}, 400
+
+    place = storage.update(uid, place)
+    return place.dict(), 200
 
 @app.delete('/api/places/<int:uid>')
 def delete_place(uid):
