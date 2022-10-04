@@ -38,6 +38,7 @@ class LocalStorage:
 
 storage = LocalStorage()
 
+
 @app.post('/api/places/')
 def add():
     payload = request.json
@@ -51,9 +52,11 @@ def add():
     place = storage.add(place)
     return place.dict(), 201
 
+
 @app.get('/api/places/')
 def get_all():
     return storage.get_all(), 200
+
 
 @app.get('/api/places/<int:uid>')
 def get_by_id(uid):
@@ -64,9 +67,16 @@ def get_by_id(uid):
 
     return place.dict(), 200
 
+
 @app.put('/api/places/<int:uid>')
 def update_by_id(uid):
     payload = request.json
+
+    try:
+        storage.get_by_id(uid)
+    except KeyError as err:
+        return {'error': f'There is no uid {err} in database'}, 400
+
     payload['uid'] = uid
 
     try:
@@ -76,6 +86,7 @@ def update_by_id(uid):
 
     place = storage.update(uid, place)
     return place.dict(), 200
+
 
 @app.delete('/api/places/<int:uid>')
 def delete_place(uid):
