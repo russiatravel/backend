@@ -1,11 +1,8 @@
 from flask import Flask, request
-from typing import Any
 from pydantic import BaseModel, ValidationError
 
 
 app = Flask(__name__)
-
-Json = dict[int, Any]
 
 class Place(BaseModel):
     uid: int
@@ -24,7 +21,7 @@ class LocalStorage:
         return place
 
     def get_all(self) -> list[Place]:
-        return list(self.places.values())
+        return [place.dict() for place in self.places.values()]
 
     def get_by_id(self, uid:int) -> Place:
         return self.places[uid]
@@ -35,6 +32,7 @@ class LocalStorage:
 
     def delete(self, uid: int) -> None:
         self.places.pop(uid)
+
 
 storage = LocalStorage()
 
