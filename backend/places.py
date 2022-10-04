@@ -79,5 +79,9 @@ def update_by_id(uid):
 
 @app.delete('/api/places/<int:uid>')
 def delete_place(uid):
-    storage.delete(uid)
+    try:
+        storage.delete(uid)
+    except KeyError as err:
+        return {'error': f'There is no uid {err} in database'}, 400
+
     return {}, 204
