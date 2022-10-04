@@ -61,7 +61,7 @@ def get_by_id(uid):
     try:
         place = storage.get_by_id(uid)
     except KeyError as err:
-        return {'error': f'There is no uid {err} in database'}, 400
+        return {}, 404
 
     return place.dict(), 200
 
@@ -73,7 +73,7 @@ def update_by_id(uid):
     try:
         storage.get_by_id(uid)
     except KeyError as err:
-        return {'error': f'There is no uid {err} in database'}, 400
+        return {}, 404
 
     payload['uid'] = uid
 
@@ -91,6 +91,6 @@ def delete_place(uid):
     try:
         storage.delete(uid)
     except KeyError as err:
-        return {'error': f'There is no uid {err} in database'}, 400
+        return {}, 404
 
     return {}, 204
