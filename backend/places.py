@@ -57,7 +57,12 @@ def get_all():
 
 @app.get('/api/places/<int:uid>')
 def get_by_id(uid):
-    return storage.get_by_id(uid), 200
+    try:
+        place = storage.get_by_id(uid)
+    except KeyError as err:
+        return {'error': f'There is no uid {err} in database'}, 400
+
+    return place.dict(), 200
 
 @app.put('/api/places/<int:uid>')
 def update_by_id(uid):
