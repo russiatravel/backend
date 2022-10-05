@@ -1,6 +1,6 @@
 from asyncio.log import logger
 import logging
-from backend.places import app
+from backend.places.views import app
 
 
 logging.basicConfig(level=logging.INFO)
