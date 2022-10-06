@@ -12,9 +12,3 @@ class NotFoundError(AppError):
         super().__init__(f'{name} [{uid}] not found')
         self.name = name
         self.uid = uid
-
-def handle_app_error(e: AppError):
-    return {'error': str(e)}, e.code
-
-def handle_validation_error(e: ValidationError):
-    return {'error': str(e)}, 400

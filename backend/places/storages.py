@@ -1,5 +1,5 @@
 from backend.places.schemas import Place
-from backend.places.errors import NotFoundError
+from backend.errors import NotFoundError
 
 class LocalStorage:
     def __init__(self):
