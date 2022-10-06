@@ -2,7 +2,7 @@ from flask import Flask, request
 from pydantic import ValidationError
 from backend.places.schemas import Place
 from backend.places.storages import LocalStorage
-from backend.places.errors import AppError, NotFoundError, handle_app_error, handle_validation_error
+from backend.places.errors import AppError, handle_app_error, handle_validation_error
 
 
 app = Flask(__name__)

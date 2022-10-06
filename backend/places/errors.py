@@ -1,6 +1,4 @@
-from flask import Flask, request
 from pydantic import ValidationError
-from backend.places.schemas import Place
 
 class AppError(Exception):
     code = 500

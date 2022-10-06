@@ -1,5 +1,3 @@
-from flask import Flask, request
-from pydantic import ValidationError
 from backend.places.schemas import Place
 from backend.places.errors import NotFoundError
 
