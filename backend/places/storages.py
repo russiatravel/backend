@@ -1,5 +1,6 @@
-from backend.places.schemas import Place
 from backend.errors import NotFoundError
+from backend.places.schemas import Place
+
 
 class LocalStorage:
     def __init__(self):
@@ -15,7 +16,7 @@ class LocalStorage:
     def get_all(self) -> list[Place]:
         return list(self.places.values())
 
-    def get_by_id(self, uid:int) -> Place:
+    def get_by_id(self, uid: int) -> Place:
         if uid not in self.places:
             raise NotFoundError('places', uid)
 
