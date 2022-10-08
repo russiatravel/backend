@@ -22,6 +22,10 @@ storage = LocalStorage()
 @app.post('/api/places/')
 def add():
     payload = request.json
+
+    if not payload:
+        raise AppError('empty payload')
+
     payload["uid"] = -1
 
     place = Place(**payload)
@@ -46,8 +50,11 @@ def get_by_id(uid):
 @app.put('/api/places/<int:uid>')
 def update_by_id(uid):
     payload = request.json
-    payload['uid'] = uid
 
+    if not payload:
+        raise AppError('empty payload')
+
+    payload['uid'] = uid
     place = Place(**payload)
     place = storage.update(uid, place)
 
