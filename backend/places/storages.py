@@ -1,4 +1,7 @@
+from backend.places.database import db_session
+
 from backend.errors import NotFoundError
+from backend.places.model import Poi
 from backend.places.schemas import Place
 
 
@@ -34,3 +37,17 @@ class LocalStorage:
             raise NotFoundError('places', uid)
 
         self.places.pop(uid)
+
+
+class OnlineStorage:
+    def __init__(self):
+        pass
+
+    def add(self, place: Place) -> Place:
+        poi = place.dict()
+        loader = Poi(name=poi['name'], description=poi['description'])
+
+        db_session.add(loader)
+        db_session.commit()
+
+        return place

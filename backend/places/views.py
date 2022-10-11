@@ -2,11 +2,12 @@ from flask import Blueprint, request
 
 from backend.errors import AppError
 from backend.places.schemas import Place
-from backend.places.storages import LocalStorage
+from backend.places.storages import LocalStorage, OnlineStorage
 
 place_view = Blueprint('places', __name__)
 
 storage = LocalStorage()
+storage2 = OnlineStorage()
 
 
 @place_view.post('/')
@@ -20,7 +21,7 @@ def add():
 
     place = Place(**payload)
 
-    place = storage.add(place)
+    place = storage2.add(place)
     return place.dict(), 201
 
 
