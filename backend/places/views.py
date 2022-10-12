@@ -2,11 +2,11 @@ from flask import Blueprint, request
 
 from backend.errors import AppError
 from backend.places.schemas import Place
-from backend.places.storages import LocalStorage
+from backend.places.storages import OnlineStorage
 
 place_view = Blueprint('places', __name__)
 
-storage = LocalStorage()
+storage = OnlineStorage()
 
 
 @place_view.post('/')
