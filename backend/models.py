@@ -1,8 +1,9 @@
-from backend.places.database import Base, engine
 from sqlalchemy import Column, Integer, String
 
+from backend.database import Base, engine
 
-class Poi(Base):
+
+class Place(Base):
     __tablename__ = 'places'
 
     uid = Column(Integer, primary_key=True)
@@ -11,4 +12,6 @@ class Poi(Base):
 
 
 if __name__ == '__main__':
+    print('Try to create')
     Base.metadata.create_all(bind=engine)
+    print('Created')

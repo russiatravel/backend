@@ -1,8 +1,10 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-db_url = 'postgresql://kkrsnuxm:M2Xr4vu-0YtzevjRGfglH1NwFbMn4VHa@tyke.db.elephantsql.com/kkrsnuxm'
+db_url = os.environ['DB_URL']
 engine = create_engine(db_url)
 db_session = scoped_session(sessionmaker(bind=engine))
 
