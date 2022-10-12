@@ -38,7 +38,7 @@ class LocalStorage:
         self.places.pop(uid)
 
 
-class OnlineStorage(LocalStorage):
+class OnlineStorage():
     def add(self, place: PlaceSchema) -> PlaceSchema:
         entity = Place(name=place.name, description=place.description)
 
@@ -46,3 +46,33 @@ class OnlineStorage(LocalStorage):
         db_session.commit()
 
         return PlaceSchema(uid=entity.uid, name=entity.name, description=entity.description)
+
+    def update(self, uid: int, place: PlaceSchema) -> PlaceSchema:
+        entity = Place.query.get(uid)
+        entity.name = place.name
+        entity.description = place.description
+
+        db_session.commit()
+
+        return PlaceSchema(uid=entity.uid, name=entity.name, description=entity.description)
+
+    def delete(self, uid: int) -> None:
+        entity = Place.query.get(uid)
+
+        db_session.delete(entity)
+        db_session.commit()
+
+    def get_by_id(self, uid: int) -> PlaceSchema:
+        entity = Place.query.get(uid)
+
+        return PlaceSchema(uid=entity.uid, name=entity.name, description=entity.description)
+
+    def get_all(self) -> list[PlaceSchema]:
+        entity = Place.query.all()
+        all_places = []
+
+        for place in entity:
+            poi = PlaceSchema(uid=place.uid, name=place.name, description=place.description)
+            all_places.append(poi)
+
+        return all_places
