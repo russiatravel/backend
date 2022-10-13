@@ -49,6 +49,10 @@ class OnlineStorage():
 
     def update(self, uid: int, place: PlaceSchema) -> PlaceSchema:
         entity = Place.query.get(uid)
+
+        if not entity:
+            raise NotFoundError('places', uid)
+
         entity.name = place.name
         entity.description = place.description
 
@@ -59,11 +63,17 @@ class OnlineStorage():
     def delete(self, uid: int) -> None:
         entity = Place.query.get(uid)
 
+        if not entity:
+            raise NotFoundError('places', uid)
+
         db_session.delete(entity)
         db_session.commit()
 
     def get_by_id(self, uid: int) -> PlaceSchema:
         entity = Place.query.get(uid)
+
+        if not entity:
+            raise NotFoundError('places', uid)
 
         return PlaceSchema(uid=entity.uid, name=entity.name, description=entity.description)
 
