@@ -8,16 +8,16 @@ class Place(Base):
     __tablename__ = 'places'
 
     uid = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, nullable=False)
     description = Column(String)
-    city_id = Column(Integer, ForeignKey('cities.uid'))
+    city_id = Column(Integer, ForeignKey('cities.uid'), nullable=False)
 
 
 class City(Base):
     __tablename__ = 'cities'
 
     uid = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, nullable=False)
     description = Column(String)
 
     places = relationship('Place')
