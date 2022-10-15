@@ -1,12 +1,14 @@
 from flask import Blueprint, request
 
-from backend.errors import AppError
 from backend.cities.schemas import City
 from backend.cities.storages import OnlineStorage
+from backend.errors import AppError
+from backend.places.storages import OnlineStorage as PlaceStorage
 
 city_view = Blueprint('cities', __name__)
 
 storage = OnlineStorage()
+place_storage = PlaceStorage()
 
 
 @city_view.post('/')
@@ -56,3 +58,9 @@ def delete_city(uid):
     storage.delete(uid)
 
     return {}, 204
+
+
+@city_view.get('/<int:uid>/places/')
+def get_all_places(uid):
+    places = place_storage.get_for_city(uid)
+    return [place.dict() for place in places], 200
