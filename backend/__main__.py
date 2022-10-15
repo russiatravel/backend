@@ -2,10 +2,11 @@ import logging
 
 from flask import Flask
 from pydantic import ValidationError
+
+from backend.cities.views import city_view
 from backend.database import db_session
 from backend.errors import AppError
 from backend.places.views import place_view
-from backend.cities.views import city_view
 
 app = Flask(__name__)
 app.register_blueprint(place_view, url_prefix='/api/places')

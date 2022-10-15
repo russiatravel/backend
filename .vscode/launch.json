@@ -16,7 +16,7 @@
             "name": "db_create",
             "type": "python",
             "request": "launch",
-            "module": "backend.places.models",
+            "module": "backend.models",
             "justMyCode": true,
             "console": "internalConsole"
         }
