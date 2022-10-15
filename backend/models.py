@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 from backend.database import Base, engine
 
@@ -18,6 +19,8 @@ class City(Base):
     uid = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
+
+    places = relationship('Place')
 
 
 if __name__ == '__main__':
