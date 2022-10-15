@@ -1,7 +1,7 @@
-from backend.errors import NotFoundError
-from backend.database import db_session
-from backend.models import City
 from backend.cities.schemas import City as CitySchema
+from backend.database import db_session
+from backend.errors import NotFoundError
+from backend.models import City
 
 
 class OnlineStorage():

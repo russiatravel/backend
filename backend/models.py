@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 from backend.database import Base, engine
 
@@ -9,6 +9,7 @@ class Place(Base):
     uid = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
+    city_id = Column(Integer, ForeignKey('cities.uid'))
 
 
 class City(Base):
