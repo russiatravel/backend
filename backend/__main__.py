@@ -5,9 +5,11 @@ from pydantic import ValidationError
 
 from backend.errors import AppError
 from backend.places.views import place_view
+from backend.cities.views import city_view
 
 app = Flask(__name__)
 app.register_blueprint(place_view, url_prefix='/api/places')
+app.register_blueprint(city_view, url_prefix='/api/cities')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
