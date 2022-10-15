@@ -2,7 +2,7 @@ from sqlalchemy.exc import IntegrityError
 
 from backend.database import db_session
 from backend.errors import ConflictError, NotFoundError
-from backend.models import Place
+from backend.models import Place, City
 from backend.places.schemas import Place as PlaceSchema
 
 
@@ -66,15 +66,37 @@ class OnlineStorage():
         )
 
     def get_all(self) -> list[PlaceSchema]:
-        entity = Place.query.all()
+        entities = Place.query.all()
         all_places = []
 
-        for place in entity:
+        for place in entities:
             poi = PlaceSchema(
                 uid=place.uid,
                 name=place.name,
                 description=place.description,
-                city_id=entity.city_id,
+                city_id=place.city_id,
+            )
+
+            all_places.append(poi)
+
+        return all_places
+
+    def get_for_city(self, uid: int) -> list[PlaceSchema]:
+        city = City.query.get(uid)
+
+        if not city:
+            raise NotFoundError('cities', uid)
+
+        entities = city.places
+
+        all_places = []
+
+        for place in entities:
+            poi = PlaceSchema(
+                uid=place.uid,
+                name=place.name,
+                description=place.description,
+                city_id=place.city_id,
             )
 
             all_places.append(poi)
