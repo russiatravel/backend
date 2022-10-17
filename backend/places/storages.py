@@ -2,7 +2,7 @@ from sqlalchemy.exc import IntegrityError
 
 from backend.database import db_session
 from backend.errors import ConflictError, NotFoundError
-from backend.models import Place, City
+from backend.models import City, Place
 from backend.places.schemas import Place as PlaceSchema
 
 
@@ -10,7 +10,12 @@ class OnlineStorage():
     name = 'places'
 
     def add(self, place: PlaceSchema) -> PlaceSchema:
-        entity = Place(name=place.name, description=place.description, city_id=place.city_id)
+        entity = Place(
+            name=place.name,
+            description=place.description,
+            city_id=place.city_id,
+            preview_image_url=place.preview_image_url,
+        )
 
         try:
             db_session.add(entity)
@@ -23,6 +28,7 @@ class OnlineStorage():
             name=entity.name,
             description=entity.description,
             city_id=entity.city_id,
+            preview_image_url=entity.preview_image_url,
         )
 
     def update(self, uid: int, place: PlaceSchema) -> PlaceSchema:
@@ -41,6 +47,7 @@ class OnlineStorage():
             name=entity.name,
             description=entity.description,
             city_id=entity.city_id,
+            preview_image_url=entity.preview_image_url,
         )
 
     def delete(self, uid: int) -> None:
@@ -63,6 +70,7 @@ class OnlineStorage():
             name=entity.name,
             description=entity.description,
             city_id=entity.city_id,
+            preview_image_url=entity.preview_image_url,
         )
 
     def get_all(self) -> list[PlaceSchema]:
@@ -75,6 +83,7 @@ class OnlineStorage():
                 name=place.name,
                 description=place.description,
                 city_id=place.city_id,
+                preview_image_url=place.preview_image_url,
             )
 
             all_places.append(poi)
@@ -97,6 +106,7 @@ class OnlineStorage():
                 name=place.name,
                 description=place.description,
                 city_id=place.city_id,
+                preview_image_url=place.preview_image_url,
             )
 
             all_places.append(poi)
