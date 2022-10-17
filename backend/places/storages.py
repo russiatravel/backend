@@ -102,3 +102,22 @@ class OnlineStorage():
             all_places.append(poi)
 
         return all_places
+
+    def find_for_city(self, uid: int, name: str) -> list[PlaceSchema]:
+        entity = Place.query.filter(Place.city_id == uid, Place.name == name).all()
+        target_place = []
+
+        if not entity:
+            raise NotFoundError(name, uid)
+
+        for place in entity:
+            poi = PlaceSchema(
+                uid=place.uid,
+                name=place.name,
+                description=place.description,
+                city_id=place.city_id,
+            )
+
+            target_place.append(poi)
+
+        return target_place

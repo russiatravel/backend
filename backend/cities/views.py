@@ -61,13 +61,11 @@ def delete_city(uid):
 
 
 @city_view.get('/<int:uid>/places/')
-def get_all_places(uid):
+def get_all_places(uid, name=''):
     if 'name' in request.args:
-        places = place_storage.find_for_city(uid)
+        name = request.args.get('name')
+        places = place_storage.find_for_city(uid, name)
     else:
         places = place_storage.get_for_city(uid)
 
     return [place.dict() for place in places], 200
-
-
-
