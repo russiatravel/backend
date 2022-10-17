@@ -11,6 +11,7 @@ class Place(Base):
     name = Column(String, nullable=False)
     description = Column(String)
     city_id = Column(Integer, ForeignKey('cities.uid'), nullable=False)
+    preview_image_url = Column(String)
 
 
 class City(Base):
