@@ -130,6 +130,7 @@ class OnlineStorage():
                 name=entity.name,
                 description=entity.description,
                 city_id=entity.city_id,
+                preview_image_url=entity.preview_image_url,
             )
 
             target_places.append(place)
