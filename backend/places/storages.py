@@ -114,9 +114,10 @@ class OnlineStorage():
         return all_places
 
     def find_for_city(self, uid: int, name: str) -> list[PlaceSchema]:
+        search = '%{}%'.format(name)
         entities = Place.query.filter(
             Place.city_id == uid,
-            Place.name == name,
+            Place.name.ilike(search),
         ).all()
 
         target_places = []
