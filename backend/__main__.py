@@ -6,11 +6,13 @@ from pydantic import ValidationError
 from backend.cities.views import city_view
 from backend.database import db_session
 from backend.errors import AppError
+from backend.photos.views import photo_view
 from backend.places.views import place_view
 
 app = Flask(__name__)
 app.register_blueprint(place_view, url_prefix='/api/places')
 app.register_blueprint(city_view, url_prefix='/api/cities')
+app.register_blueprint(photo_view, url_prefix='/api/photos')
 
 
 logging.basicConfig(level=logging.INFO)

@@ -13,6 +13,8 @@ class Place(Base):
     city_id = Column(Integer, ForeignKey('cities.uid'), nullable=False)
     preview_image_url = Column(String)
 
+    photos = relationship('Photo')
+
 
 class City(Base):
     __tablename__ = 'cities'
@@ -22,6 +24,14 @@ class City(Base):
     description = Column(String)
 
     places = relationship('Place')
+
+
+class Photo(Base):
+    __tablename__ = 'photos'
+
+    uid = Column(Integer, primary_key=True)
+    place_id = Column(Integer, ForeignKey('places.uid'), nullable=False)
+    image_url = Column(String)
 
 
 if __name__ == '__main__':

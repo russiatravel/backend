@@ -1,12 +1,14 @@
 from flask import Blueprint, request
 
 from backend.errors import AppError
+from backend.photos.storages import OnlineStorage as PhotoStorage
 from backend.places.schemas import Place
 from backend.places.storages import OnlineStorage
 
 place_view = Blueprint('places', __name__)
 
 storage = OnlineStorage()
+photo_storage = PhotoStorage()
 
 
 @place_view.post('/')
@@ -56,3 +58,10 @@ def delete_place(uid):
     storage.delete(uid)
 
     return {}, 204
+
+
+@place_view.get('/<int:uid>/photos/')
+def get_all_photos(uid):
+    photos = photo_storage.get_for_place(uid)
+
+    return [photo.dict() for photo in photos], 200
