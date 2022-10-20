@@ -86,6 +86,6 @@ def add_photo(uid):
 
 @place_view.delete('/<int:uid>/photos/<int:photo_uid>')
 def delete_photo(uid, photo_uid):
-    photo_storage.delete(photo_uid)
+    photo_storage.delete(uid, photo_uid)
 
     return {}, 204

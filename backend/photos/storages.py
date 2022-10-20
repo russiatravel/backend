@@ -27,11 +27,19 @@ class OnlineStorage():
             image_url=entity.image_url,
         )
 
-    def delete(self, photo_uid: int) -> None:
+    def delete(self, uid: int, photo_uid: int) -> None:
+        place = Place.query.get(uid)
+
+        if not place:
+            raise NotFoundError('places', uid)
+
         entity = Photo.query.get(photo_uid)
 
         if not entity:
             raise NotFoundError(self.name, photo_uid)
+
+        if entity.place_id != uid:
+            raise ConflictError(f'photo {photo_uid} in place {uid}')
 
         db_session.delete(entity)
         db_session.commit()
