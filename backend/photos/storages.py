@@ -27,11 +27,11 @@ class OnlineStorage():
             image_url=entity.image_url,
         )
 
-    def delete(self, uid: int) -> None:
-        entity = Photo.query.get(uid)
+    def delete(self, photo_uid: int) -> None:
+        entity = Photo.query.get(photo_uid)
 
         if not entity:
-            raise NotFoundError(self.name, uid)
+            raise NotFoundError(self.name, photo_uid)
 
         db_session.delete(entity)
         db_session.commit()
