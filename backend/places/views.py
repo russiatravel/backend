@@ -61,14 +61,14 @@ def delete_place(uid):
     return {}, 204
 
 
-@place_view.get('/<int:uid>/photos')
-def get_all_photos(uid):
+@place_view.get('/<int:uid>/photos/')
+def get_photos(uid):
     photos = photo_storage.get_for_place(uid)
 
     return [photo.dict() for photo in photos], 200
 
 
-@place_view.post('/<int:uid>/photos')
+@place_view.post('/<int:uid>/photos/')
 def add_photo(uid):
     payload = request.json
 
