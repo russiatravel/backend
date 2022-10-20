@@ -61,7 +61,7 @@ def delete_place(uid):
     return {}, 204
 
 
-@place_view.get('/<uid>/photos')
+@place_view.get('/<int:uid>/photos')
 def get_all_photos(uid):
     photos = photo_storage.get_for_place(uid)
 
