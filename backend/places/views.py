@@ -27,10 +27,10 @@ def add():
     return place.dict(), 201
 
 
-@place_view.get('/')
+"""@place_view.get('/')
 def get_all():
     places = storage.get_all()
-    return [place.dict() for place in places], 200
+    return [place.dict() for place in places], 200"""
 
 
 @place_view.get('/<int:uid>')
@@ -89,3 +89,14 @@ def delete_photo(uid, photo_uid):
     photo_storage.delete(uid, photo_uid)
 
     return {}, 204
+
+
+@place_view.get('/')
+def get_place(name=''):
+    if 'name' in request.args:
+        name = request.args.get('name')
+        places = storage.get_by_name(name)
+    else:
+        places = storage.get_all()
+
+    return [place.dict() for place in places], 200
