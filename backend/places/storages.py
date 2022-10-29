@@ -135,20 +135,18 @@ class OnlineStorage():
 
         return target_places
 
-    def get_by_name(self, name: str) -> list[PlaceSchema]:
-        entities = Place.query.filter(Place.name.ilike(name)).all()
+    def get_by_name(self, name: str) -> PlaceSchema:
+        place = Place.query.filter(Place.name.ilike(name)).all()
 
-        target_places = []
+        if not place:
+            raise NotFoundError(self.name, 0)
 
-        for entity in entities:
-            place = PlaceSchema(
-                uid=entity.uid,
-                name=entity.name,
-                description=entity.description,
-                city_id=entity.city_id,
-                preview_image_url=entity.preview_image_url,
-            )
+        entity = place[0]
 
-            target_places.append(place)
-
-        return target_places
+        return PlaceSchema(
+            uid=entity.uid,
+            name=entity.name,
+            description=entity.description,
+            city_id=entity.city_id,
+            preview_image_url=entity.preview_image_url,
+        )
