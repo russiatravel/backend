@@ -27,12 +27,6 @@ def add():
     return place.dict(), 201
 
 
-"""@place_view.get('/')
-def get_all():
-    places = storage.get_all()
-    return [place.dict() for place in places], 200"""
-
-
 @place_view.get('/<int:uid>')
 def get_by_id(uid):
     place = storage.get_by_id(uid)
