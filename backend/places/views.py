@@ -89,7 +89,8 @@ def delete_photo(uid, photo_uid):
 def get_place(name=''):
     if 'name' in request.args:
         name = request.args.get('name')
-        return storage.get_by_name(name).dict()
+        places = storage.get_by_name(name)
+    else:
+        places = storage.get_all()
 
-    places = storage.get_all()
     return [place.dict() for place in places], 200
