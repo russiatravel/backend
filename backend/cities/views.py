@@ -27,8 +27,13 @@ def add():
 
 
 @city_view.get('/')
-def get_all():
-    cities = storage.get_all()
+def get_all(name=''):
+    if 'name' in request.args:
+        name = request.args.get('name')
+        cities = storage.get_by_name(name)
+    else:
+        cities = storage.get_all()
+
     return [city.dict() for city in cities], 200
 
 

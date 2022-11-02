@@ -52,3 +52,17 @@ class OnlineStorage():
             all_cities.append(poi)
 
         return all_cities
+
+    def get_by_name(self, name: str) -> list[CitySchema]:
+        entities = City.query.filter(City.name.ilike(name)).all()
+
+        if not entities:
+            raise NotFoundError(name, 0)
+
+        all_cities = []
+
+        for entity in entities:
+            city = CitySchema(uid=entity.uid, name=entity.name, description=entity.description)
+            all_cities.append(city)
+
+        return all_cities
