@@ -38,7 +38,9 @@ class OnlineStorage():
             raise NotFoundError(self.name, uid)
 
         entity.name = place.name
+        entity.city_id = place.city_id
         entity.description = place.description
+        entity.preview_image_url = place.preview_image_url
 
         db_session.commit()
 
