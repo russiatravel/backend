@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from backend.database import Base, engine
@@ -14,6 +14,9 @@ class Place(Base):
     preview_image_url = Column(String)
 
     photos = relationship('Photo')
+    __table_args__ = (
+        UniqueConstraint('name', 'city_id', name='place_name_desc_uniq'),
+    )
 
 
 class City(Base):
@@ -24,6 +27,9 @@ class City(Base):
     description = Column(String)
 
     places = relationship('Place')
+    __table_args__ = (
+        UniqueConstraint('name', name='city_name_uniq'),
+    )
 
 
 class Photo(Base):
