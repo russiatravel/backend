@@ -15,7 +15,7 @@ class Place(Base):
 
     photos = relationship('Photo')
     __table_args__ = (
-        UniqueConstraint('name', 'description', name='place_name_desc_uniq'),
+        UniqueConstraint('name', 'city_id', name='place_name_desc_uniq'),
     )
 
 
