@@ -37,7 +37,7 @@ class Photo(Base):
 
     uid = Column(Integer, primary_key=True)
     place_id = Column(Integer, ForeignKey('places.uid'), nullable=False)
-    image_url = Column(String)
+    image_url = Column(String, nullable=False)
 
 
 if __name__ == '__main__':
