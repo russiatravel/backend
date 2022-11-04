@@ -19,6 +19,14 @@
             "module": "backend.models",
             "justMyCode": true,
             "console": "internalConsole"
+        },
+        {
+            "name": "db_loader",
+            "type": "python",
+            "request": "launch",
+            "module": "backend.tools",
+            "justMyCode": true,
+            "console": "internalConsole"
         }
     ]
 }
