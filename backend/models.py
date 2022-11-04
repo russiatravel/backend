@@ -28,7 +28,7 @@ class City(Base):
 
     places = relationship('Place')
     __table_args__ = (
-        UniqueConstraint('name', name='city_name_desc_uniq'),
+        UniqueConstraint('name', name='city_name_uniq'),
     )
 
 
