@@ -1,7 +1,8 @@
 import csv
 from typing import Any
+
 from backend.database import db_session
-from backend.models import Place, City
+from backend.models import City, Place
 
 
 def read_csv(filename: str) -> list[dict[str, Any]]:
@@ -19,7 +20,7 @@ def get_unique_cities(data):
     for row in data:
         name = row['city_name']
         if name not in cities:
-            city = {'name': name}
+            city = {'name': name, 'description': ''}
             cities[name] = city
 
     return cities
@@ -36,11 +37,13 @@ def get_unique_places(data, cities):
     for row in data:
         city_name = row['city_name']
         place_name = row['place_name']
+        preview_image_url = 'https://bridgetomoscow.com/files/200/1785.jpg'
         if place_name not in places:
             place = {
-                "name": place_name,
-                "description": row["place_description"],
-                "city_id": cities[city_name]['uid']
+                'name': place_name,
+                'description': row['place_description'],
+                'city_id': cities[city_name]['uid'],
+                'preview_image_url': preview_image_url,
             }
             places[place_name] = place
 
