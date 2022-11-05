@@ -141,9 +141,6 @@ class OnlineStorage():
         search = '%{name}%'.format(name=name)
         entities = Place.query.filter(Place.name.ilike(search)).all()
 
-        if not entities:
-            raise NotFoundError(self.name, 0)
-
         target_places = []
 
         for entity in entities:
