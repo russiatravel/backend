@@ -54,10 +54,8 @@ class OnlineStorage():
         return all_cities
 
     def get_by_name(self, name: str) -> list[CitySchema]:
-        entities = City.query.filter(City.name.ilike(name)).all()
-
-        if not entities:
-            raise NotFoundError(name, 0)
+        search = '%{name}%'.format(name=name)
+        entities = City.query.filter(City.name.ilike(search)).all()
 
         all_cities = []
 
